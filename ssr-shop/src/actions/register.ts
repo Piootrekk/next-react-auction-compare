@@ -2,11 +2,10 @@
 
 import { signUpSchema, TSignUpSchema } from "@/lib/schema/authSchema";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 import createServerClientSupabase from "@/lib/supabase/server";
 
-const register = async (formData: FormData) => {
+const register = async (_previousState: any, formData: FormData) => {
   const supabase = createServerClientSupabase();
 
   const data: TSignUpSchema = {
@@ -18,19 +17,27 @@ const register = async (formData: FormData) => {
   const parsedData = signUpSchema.safeParse(data);
 
   if (!parsedData.success) {
-    console.log("Parse", parsedData.error);
-    redirect("/error");
+    const emailError = parsedData.error.errors.find(
+      (error) => error.path[0] === "email"
+    );
+    const passwordError = parsedData.error.errors.find(
+      (error) => error.path[0] === "password"
+    );
+    const confirmPasswordError = parsedData.error.errors.find(
+      (error) => error.path[0] === "confirmPassword"
+    );
+
+    return {
+      zodError: { emailError, passwordError, confirmPasswordError },
+    };
   }
 
-  const { error } = await supabase.auth.signUp(data);
+  const signUp = await supabase.auth.signUp(data);
 
-  if (error) {
-    console.log("supabase", error);
-    redirect("/error");
+  if (signUp.error) {
+    return { sbError: signUp.error.message };
   }
-
   revalidatePath("/", "layout");
-  redirect("/");
 };
 
 export { register };

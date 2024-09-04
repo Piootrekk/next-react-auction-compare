@@ -1,8 +1,9 @@
 "use server";
 
 import createServerClientSupabase from "@/lib/supabase/server";
-const authCheck = () => {
+const authCheck = async () => {
   const supabase = createServerClientSupabase();
-  return supabase.auth.getSession();
+  const user = await supabase.auth.getUser();
+  return user;
 };
 export { authCheck };

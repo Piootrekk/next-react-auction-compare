@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Register a new account",
 };
 
-export default function AuthLayout({
+export default function RegisterLayout({
   children,
 }: {
   children: React.ReactNode;

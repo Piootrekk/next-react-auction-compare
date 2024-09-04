@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Login to your account, if you have one.",
 };
 
-export default function AuthLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;

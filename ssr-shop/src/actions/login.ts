@@ -3,31 +3,35 @@
 import { loginSchema, TLoginSchema } from "@/lib/schema/authSchema";
 import createServerClientSupabase from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-const login = async (formData: FormData) => {
+export const login = async (_previousState: any, formData: FormData) => {
   const supabase = createServerClientSupabase();
 
-  const data: TLoginSchema = {
+  const userSchema: TLoginSchema = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const parsedData = loginSchema.safeParse(data);
+  const parsedData = loginSchema.safeParse(userSchema);
 
   if (!parsedData.success) {
-    console.log(parsedData.error);
-    redirect("/error");
+    const emailError = parsedData.error.errors.find(
+      (error) => error.path[0] === "email"
+    );
+    const passwordError = parsedData.error.errors.find(
+      (error) => error.path[0] === "password"
+    );
+
+    return {
+      zodError: { emailError, passwordError },
+    };
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error } = await supabase.auth.signInWithPassword(userSchema);
 
   if (error) {
-    redirect("/error");
+    return { sbError: error.message };
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
 };
-
-export { login };
