@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 const LoginPage = async () => {
   const { data } = await authCheck();
 
-  // if (data.user) {
-  //   redirect("/");
-  // }
+  if (data.user) {
+    redirect("/");
+  }
 
   return (
     <>
