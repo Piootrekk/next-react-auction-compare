@@ -37,7 +37,7 @@ const register = async (_previousState: any, formData: FormData) => {
   if (signUp.error) {
     return { sbError: signUp.error.message };
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/");
 };
 
 export { register };

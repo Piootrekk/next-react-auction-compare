@@ -33,5 +33,5 @@ export const login = async (_previousState: any, formData: FormData) => {
     return { sbError: error.message };
   }
 
-  revalidatePath("/", "layout");
+  revalidatePath("/");
 };

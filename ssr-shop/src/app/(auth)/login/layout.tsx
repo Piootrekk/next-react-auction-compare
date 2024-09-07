@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen container mx-auto">
+      <main>{children}</main>
+    </div>
+  );
 }

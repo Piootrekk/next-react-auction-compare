@@ -8,7 +8,7 @@ import { useFormState } from "react-dom";
 import PendingSubmit from "../loading/PendingSubmit";
 
 const Login = () => {
-  const [error, action, isPending] = useFormState(login, undefined, "/");
+  const [error, action] = useFormState(login, undefined, "/");
   return (
     <div className="flex flex-col items-center justify-center mt-14 ">
       <h1 className="sm:text-5xl text-4xl font-extrabold pb-4">Login</h1>
@@ -44,7 +44,6 @@ const Login = () => {
                 className="mt-2 text-center"
               />
             )}
-            {isPending && <p>PENDING</p>}
           </form>
         </CardContent>
       </Card>

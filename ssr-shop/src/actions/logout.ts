@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 const logout = async () => {
   const supabaseClient = createServerClientSupabase();
   await supabaseClient.auth.signOut();
-  revalidatePath("/", "layout");
+  revalidatePath("/");
 };
 
 export { logout };

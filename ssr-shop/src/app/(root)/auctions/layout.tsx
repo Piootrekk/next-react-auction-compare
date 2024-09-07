@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Register",
-  description: "Register a new account",
+  title: "Auctions",
+  description: "Auctions for everyone, buy and sell your items.",
 };
 
-export default function RegisterLayout({
+export default function LayoutAuction({
   children,
 }: {
   children: React.ReactNode;
