@@ -1,7 +1,6 @@
 "use client";
 import { register } from "../../actions/register";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { Card, CardHeader, CardDescription, CardContent } from "../ui/card";
 import PendingSubmit from "../loading/PendingSubmit";
 import { useFormState } from "react-dom";
@@ -23,8 +22,8 @@ const Register = () => {
           <form action={action}>
             <div className="mb-4">
               <Input type="email" placeholder="Type your email" name="email" />
-              {error?.zodError?.emailError && (
-                <ErrorMessage message={error.zodError.emailError.message} />
+              {error?.zodError?.email && (
+                <ErrorMessage message={error.zodError.email} />
               )}
             </div>
             <div className="mb-4">
@@ -33,8 +32,8 @@ const Register = () => {
                 placeholder="Type your password"
                 name="password"
               />
-              {error?.zodError?.passwordError && (
-                <ErrorMessage message={error.zodError.passwordError.message} />
+              {error?.zodError?.password && (
+                <ErrorMessage message={error.zodError.password} />
               )}
             </div>
             <div className="mb-4">
@@ -43,10 +42,8 @@ const Register = () => {
                 placeholder="Confirm your password"
                 name="confirmPassword"
               />
-              {error?.zodError?.confirmPasswordError && (
-                <ErrorMessage
-                  message={error.zodError.confirmPasswordError.message}
-                />
+              {error?.zodError?.confirmPassword && (
+                <ErrorMessage message={error.zodError.confirmPassword} />
               )}
             </div>
             <PendingSubmit buttonName="Register" />

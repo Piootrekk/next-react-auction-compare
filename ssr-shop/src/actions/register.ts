@@ -2,7 +2,7 @@
 
 import { signUpSchema, TSignUpSchema } from "@/lib/schema/authSchema";
 import { revalidatePath } from "next/cache";
-
+import { returnZodErrorsObject } from "@/utils/returnZodErrorobject";
 import createServerClientSupabase from "@/lib/supabase/server";
 
 const register = async (_previousState: any, formData: FormData) => {
@@ -17,19 +17,8 @@ const register = async (_previousState: any, formData: FormData) => {
   const parsedData = signUpSchema.safeParse(data);
 
   if (!parsedData.success) {
-    const emailError = parsedData.error.errors.find(
-      (error) => error.path[0] === "email"
-    );
-    const passwordError = parsedData.error.errors.find(
-      (error) => error.path[0] === "password"
-    );
-    const confirmPasswordError = parsedData.error.errors.find(
-      (error) => error.path[0] === "confirmPassword"
-    );
-
-    return {
-      zodError: { emailError, passwordError, confirmPasswordError },
-    };
+    const errorObject = returnZodErrorsObject(parsedData.error.errors);
+    return { zodError: errorObject };
   }
 
   const signUp = await supabase.auth.signUp(data);

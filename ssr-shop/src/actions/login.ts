@@ -3,7 +3,7 @@
 import { loginSchema, TLoginSchema } from "@/lib/schema/authSchema";
 import createServerClientSupabase from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-
+import { returnZodErrorsObject } from "@/utils/returnZodErrorobject";
 export const login = async (_previousState: any, formData: FormData) => {
   const supabase = createServerClientSupabase();
 
@@ -15,16 +15,9 @@ export const login = async (_previousState: any, formData: FormData) => {
   const parsedData = loginSchema.safeParse(userSchema);
 
   if (!parsedData.success) {
-    const emailError = parsedData.error.errors.find(
-      (error) => error.path[0] === "email"
-    );
-    const passwordError = parsedData.error.errors.find(
-      (error) => error.path[0] === "password"
-    );
+    const errorObject = returnZodErrorsObject(parsedData.error.errors);
 
-    return {
-      zodError: { emailError, passwordError },
-    };
+    return { zodError: errorObject };
   }
 
   const { error } = await supabase.auth.signInWithPassword(userSchema);

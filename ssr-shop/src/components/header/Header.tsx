@@ -11,9 +11,15 @@ const Header = async () => {
   return (
     <header className="bg-secondary">
       <div className="flex justify-between items-center p-4 container mx-auto gap-y-4 flex-wrap">
-        <div className="flex items-center gap-2 gap-x-24">
+        <div className="flex items-center gap-2 gap-x-24 flex-wrap">
           <Link href="/" className="flex items-center gap-2">
-            <Image src={auction} width={50} height={50} alt="logo" />
+            <Image
+              src={auction}
+              width={50}
+              height={50}
+              alt="logo"
+              className="sm:block hidden"
+            />
             <h1 className="sm:text-4xl text-2xl font-bold">SSR Auctions</h1>
             <br />
             Online

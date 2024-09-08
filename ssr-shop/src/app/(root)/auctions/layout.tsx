@@ -12,7 +12,7 @@ export default function LayoutAuction({
 }) {
   return (
     <div className="min-h-screen container mx-auto">
-      <main>{children}</main>
+      <main className="mt-12">{children}</main>
     </div>
   );
 }

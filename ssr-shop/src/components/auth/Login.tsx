@@ -23,8 +23,8 @@ const Login = () => {
           <form action={action}>
             <div className="mb-4 gap-2">
               <Input type="email" placeholder="Type your email" name="email" />
-              {error?.zodError?.emailError && (
-                <ErrorMessage message={error.zodError.emailError.message} />
+              {error?.zodError?.email && (
+                <ErrorMessage message={error.zodError.email} />
               )}
             </div>
             <div className="mb-4 gap-2">
@@ -33,8 +33,8 @@ const Login = () => {
                 placeholder="Type your password"
                 name="password"
               />
-              {error?.zodError?.passwordError && (
-                <ErrorMessage message={error.zodError.passwordError.message} />
+              {error?.zodError?.password && (
+                <ErrorMessage message={error.zodError.password} />
               )}
             </div>
             <PendingSubmit buttonName="Login" />
