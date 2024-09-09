@@ -2,7 +2,7 @@
 
 import createServerClientSupabase from "@/lib/supabase/server";
 import { TNewAuctionSchema } from "../schema/newAuctionSchema";
-
+import { TAuction, TAuctionWithBids } from "@/lib/schema/dbSchema";
 export const insertNewAuction = async (
   newAuctionData: TNewAuctionSchema,
   user_id: string
@@ -46,7 +46,7 @@ export const getAllAuctions = async () => {
     return { error: error.message };
   }
 
-  return { data };
+  return { data: data as TAuction[] };
 };
 
 export const getUserAuctions = async (user_id: string) => {
@@ -72,13 +72,14 @@ export const getAuctionByIdWithBids = async (auction_id: string) => {
     .select(
       "id, created_at, title, user_id, description, starting_bid, interval_bid, current_bid, end_time, image_path, bid (id, created_at, auction_id, user_id, bid_amount)"
     )
-    .eq("id", auction_id);
+    .eq("id", auction_id)
+    .single();
 
   if (error) {
     return { error: error.message };
   }
 
-  return { data };
+  return { data: data as TAuctionWithBids };
 };
 
 export const insertNewBid = async (
@@ -95,6 +96,26 @@ export const insertNewBid = async (
       bid_amount,
     },
   ]);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { success: true };
+};
+
+export const updateCurrentBid = async (
+  auction_id: string,
+  bid_amount: number
+) => {
+  const supabase = createServerClientSupabase();
+
+  const { error } = await supabase
+    .from("auction")
+    .update({
+      current_bid: bid_amount,
+    })
+    .eq("id", auction_id);
 
   if (error) {
     return { error: error.message };

@@ -33,5 +33,5 @@ export const createNew = async (_previousState: any, formData: FormData) => {
   if (sendData.error) {
     return { sbError: sendData.error };
   }
-  return { success: true };
+  redirect(`/auctions/my`);
 };

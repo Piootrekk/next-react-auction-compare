@@ -36,7 +36,9 @@ const FileInput: React.FC<FileInputProps> = ({ name, className }) => {
         type="button"
         className={cn("transition-colors", className)}
       >
-        <div className="flex flex-row">
+        <div
+          className={`flex flex-row ${!fileName && "text-muted-foreground"}`}
+        >
           <UploadIcon className="mr-1 h-5 w-5 self-center" />
           {fileName ? fileName : "Upload image"}
         </div>

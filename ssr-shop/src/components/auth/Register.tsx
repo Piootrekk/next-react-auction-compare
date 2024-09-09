@@ -47,6 +47,12 @@ const Register = () => {
               )}
             </div>
             <PendingSubmit buttonName="Register" />
+            {error?.sbError && (
+              <ErrorMessage
+                message={error.sbError}
+                className="mt-2 text-center"
+              />
+            )}
           </form>
         </CardContent>
       </Card>

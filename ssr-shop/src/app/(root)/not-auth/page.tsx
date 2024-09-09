@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AlertTriangle, Link } from "lucide-react";
+import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NotAuth = async () => {
@@ -25,9 +26,11 @@ const NotAuth = async () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button variant="ghost" className="w-full">
-            <Link href="/">Go back to home</Link>
-          </Button>
+          <Link href="/" className="w-fit">
+            <Button variant="ghost" className="w-full">
+              Go back to home
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>
