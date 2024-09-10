@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Timer } from "lucide-react";
+import LoadingMy from "./loading";
 
 const MyAuctions = async () => {
   const { data } = await authCheck();

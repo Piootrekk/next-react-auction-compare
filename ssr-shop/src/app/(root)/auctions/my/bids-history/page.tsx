@@ -26,24 +26,26 @@ const BidsHistory = async () => {
   }
 
   return (
-    <div className="space-y-4 mt-12">
-      {bids.data.map((bid) => (
-        <div
-          key={bid.id}
-          className="flex gap-x-14 justify-center  items-center"
-        >
-          <span className="text-lg">
-            <span className="font-bold">${bid.bid_amount}</span>
-          </span>
-          <Link href={`/auctions/${bid.auction_id}`}>
-            <span className="text-muted-foreground">{bid.auction_id}</span>
-          </Link>
-          <span className="text-muted-foreground">
-            {new Date(bid.created_at).toLocaleString()}
-          </span>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="space-y-4 mt-12">
+        {bids.data.map((bid) => (
+          <div
+            key={bid.id}
+            className="flex gap-x-14 justify-center  items-center"
+          >
+            <span className="text-lg">
+              <span className="font-bold">${bid.bid_amount}</span>
+            </span>
+            <Link href={`/auctions/${bid.auction_id}`}>
+              <span className="text-muted-foreground">{bid.auction_id}</span>
+            </Link>
+            <span className="text-muted-foreground">
+              {new Date(bid.created_at).toLocaleString()}
+            </span>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

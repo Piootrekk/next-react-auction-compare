@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import React from "react";
 import NewAuctionForm from "./newAuctionForm";
+import LoadingNew from "./loading";
 
 const AuctionCreate = async () => {
   const { data } = await authCheck();
