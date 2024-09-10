@@ -19,6 +19,7 @@ const Header = async () => {
               height={50}
               alt="logo"
               className="sm:block hidden"
+              priority={false}
             />
             <h1 className="sm:text-4xl text-2xl font-bold">SSR Auctions</h1>
             <br />

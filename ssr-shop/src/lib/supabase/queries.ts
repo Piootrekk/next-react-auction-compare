@@ -123,3 +123,18 @@ export const updateCurrentBid = async (
 
   return { success: true };
 };
+
+export const getAllUserBids = async (user_id: string) => {
+  const supabase = createServerClientSupabase();
+
+  const { data, error } = await supabase
+    .from("bid")
+    .select("*")
+    .eq("user_id", user_id);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { data: data as TAuctionWithBids["bid"] };
+};

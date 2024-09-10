@@ -2,9 +2,11 @@ import { getAuctionByIdWithBids } from "@/lib/supabase/queries";
 import { isActualDate } from "@/utils/isActualDate";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { TAuctionWithBids } from "@/lib/schema/dbSchema";
 import FormBid from "./formBid";
+import { authCheck } from "@/actions/authCheck";
+import Timer from "./timer";
+import { Button } from "@/components/ui/button";
 
 type AuctionIdProps = {
   params: {
@@ -19,6 +21,7 @@ if (!endpoint) {
 }
 
 const AuctionId: React.FC<AuctionIdProps> = async ({ params: { id } }) => {
+  const user = await authCheck();
   const { data } = await getAuctionByIdWithBids(id);
   console.log(id);
   if (!data) {
@@ -43,6 +46,7 @@ const AuctionId: React.FC<AuctionIdProps> = async ({ params: { id } }) => {
             width={400}
             height={400}
             className="rounded-md"
+            priority={false}
           />
           {data.description && (
             <p className="text-lg text-muted-foreground">{data.description}</p>
@@ -63,21 +67,38 @@ const AuctionId: React.FC<AuctionIdProps> = async ({ params: { id } }) => {
               <span className="font-bold">${data.interval_bid}</span>
             </div>
           </div>
+          <div>
+            <Timer time={data.end_time} />
+          </div>
         </div>
         <div className="space-y-4 flex-1">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">Auction Bids</h2>
-            <FormBid
-              bid_amount={
-                data.current_bid
-                  ? data.current_bid + data.interval_bid
-                  : data.starting_bid
-              }
-              auction_id={id}
-            />
+            {isActualDate(new Date(data.end_time)) &&
+            data.user_id !== user.data.user?.id &&
+            user.data.user ? (
+              <FormBid
+                bid_amount={
+                  data.current_bid
+                    ? data.current_bid + data.interval_bid
+                    : data.starting_bid
+                }
+                auction_id={id}
+              />
+            ) : (
+              <Button
+                type="submit"
+                className="w-24"
+                variant={"outline"}
+                disabled
+              >
+                Place Bid
+              </Button>
+            )}
           </div>
+
           {data.bid.length > 0 ? (
-            <Bids bids={data.bid} />
+            <Bids bids={data.bid.reverse()} />
           ) : (
             <div className="text-muted-foreground">No bids yet</div>
           )}
@@ -109,3 +130,5 @@ const Bids: React.FC<BidsProps> = ({ bids }) => {
 };
 
 export default AuctionId;
+
+export const revalidate = 0;

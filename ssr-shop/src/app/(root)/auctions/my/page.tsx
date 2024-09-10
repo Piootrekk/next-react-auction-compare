@@ -1,7 +1,6 @@
 import { authCheck } from "@/actions/authCheck";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { getUserAuctions } from "@/lib/supabase/queries";
-import { isActualDate } from "@/utils/isActualDate";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { format } from "date-fns";

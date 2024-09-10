@@ -8,6 +8,7 @@ type TAuction = {
   current_bid: number;
   end_time: string;
   image_path: string;
+  user_id: string;
 };
 
 type TAuctionWithBids = TAuction & {
