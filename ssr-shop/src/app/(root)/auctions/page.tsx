@@ -13,6 +13,8 @@ import { isActualDate } from "@/utils/isActualDate";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Timer } from "lucide-react";
+import { Suspense } from "react";
+import AuctionCardLoading from "@/components/loading/auctionCardLoading";
 
 const Auction = async () => {
   const auctions = await getAllAuctions();

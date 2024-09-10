@@ -6,13 +6,13 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 
-type TBullshitText = {
+type TAccordeonData = {
   title: string;
   description: string;
 };
 
 const AccordionInfo = () => {
-  const bullshitText: TBullshitText[] = [
+  const acordeonData: TAccordeonData[] = [
     {
       title: "What is this?",
       description:
@@ -49,7 +49,7 @@ const AccordionInfo = () => {
   ];
   return (
     <Accordion type="single" collapsible className="w-full my-11 px-11">
-      {bullshitText.map((item, index) => (
+      {acordeonData.map((item, index) => (
         <AccordionItem key={index} value={`item-${index}`}>
           <AccordionTrigger>{item.title}</AccordionTrigger>
           <AccordionContent>{item.description}</AccordionContent>

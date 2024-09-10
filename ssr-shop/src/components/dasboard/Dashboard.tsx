@@ -1,8 +1,9 @@
-import { Card, CardDescription } from "../ui/card";
+import { Card, CardDescription, CardHeader } from "../ui/card";
 import { authCheck } from "@/actions/authCheck";
 import Futures from "./Features";
 import AccordionInfo from "./AccordionInfo";
 import Link from "next/link";
+
 const Dashboard = async () => {
   const { data } = await authCheck();
   if (!data.user) {
@@ -13,14 +14,12 @@ const Dashboard = async () => {
           <p className="text-2xl">Welcom to auctions online</p>
           <CardDescription>
             Please login to see your dashboard. To login click on the login
-            button on the top right corner.
-            <p className="text-center text-lg">
-              <Link href="/auctions">Show all auctions</Link>
-            </p>
+            button on the top right corner .<br />
+            <Link className="flex justify-center pt-4" href="/auctions">
+              <span className="text-center text-lg">Show all auctions</span>
+            </Link>
           </CardDescription>
         </Card>
-        <Futures />
-        <AccordionInfo />
       </div>
     );
   }
@@ -30,8 +29,6 @@ const Dashboard = async () => {
         <h1 className="text-4xl">Welcome</h1>
         <p className="text-2xl">{data.user.email}</p>
       </Card>
-      <Futures />
-      <AccordionInfo />
     </div>
   );
 };
