@@ -1,18 +1,47 @@
-"use server";
+import { UploadedFile } from "express-fileupload";
+import supabase from "./supabase";
 
-import createServerClientSupabase from "@/lib/supabase/server";
-import { TNewAuctionSchema } from "../schema/newAuctionSchema";
-import { TAuction, TAuctionWithBids } from "@/lib/schema/dbSchema";
+export type TNewAuctionSchema = {
+  title: string;
+  description: string | null;
+  startingPrice: number;
+  intetvalPrice: number;
+  image: UploadedFile;
+  endsAt: string;
+};
+
+export type TAuction = {
+  id: string;
+  created_at: string;
+  title: string;
+  description: string;
+  starting_bid: number;
+  interval_bid: number;
+  current_bid: number;
+  end_time: string;
+  image_path: string;
+  user_id: string;
+};
+
+export type TAuctionWithBids = TAuction & {
+  bid: {
+    id: string;
+    created_at: string;
+    auction_id: string;
+    user_id: string;
+    bid_amount: number;
+  }[];
+};
 
 export const insertNewAuction = async (
   newAuctionData: TNewAuctionSchema,
   user_id: string
 ) => {
-  const supabase = createServerClientSupabase();
-
   const storageObj = await supabase.storage
     .from("auction_images")
-    .upload(newAuctionData.image.name, newAuctionData.image);
+    .upload(newAuctionData.image.name, newAuctionData.image.data, {
+      contentType: newAuctionData.image.mimetype,
+    });
 
   if (storageObj.error) {
     return { error: storageObj.error.message };
@@ -39,8 +68,6 @@ export const insertNewAuction = async (
 };
 
 export const getAllAuctions = async () => {
-  const supabase = createServerClientSupabase();
-
   const { data, error } = await supabase.from("auction").select("*");
 
   if (error) {
@@ -51,8 +78,6 @@ export const getAllAuctions = async () => {
 };
 
 export const getUserAuctions = async (user_id: string) => {
-  const supabase = createServerClientSupabase();
-
   const { data, error } = await supabase
     .from("auction")
     .select("*")
@@ -66,8 +91,6 @@ export const getUserAuctions = async (user_id: string) => {
 };
 
 export const getAuctionByIdWithBids = async (auction_id: string) => {
-  const supabase = createServerClientSupabase();
-
   const { data, error } = await supabase
     .from("auction")
     .select(
@@ -88,8 +111,6 @@ export const insertNewBid = async (
   user_id: string,
   bid_amount: number
 ) => {
-  const supabase = createServerClientSupabase();
-
   const { error } = await supabase.from("bid").insert([
     {
       auction_id,
@@ -102,32 +123,21 @@ export const insertNewBid = async (
     return { error: error.message };
   }
 
-  return { success: true };
-};
-
-export const updateCurrentBid = async (
-  auction_id: string,
-  bid_amount: number
-) => {
-  const supabase = createServerClientSupabase();
-
-  const { error } = await supabase
+  const upl = await supabase
     .from("auction")
     .update({
       current_bid: bid_amount,
     })
     .eq("id", auction_id);
 
-  if (error) {
-    return { error: error.message };
+  if (upl.error) {
+    return { error: upl.error.message };
   }
 
   return { success: true };
 };
 
 export const getAllUserBids = async (user_id: string) => {
-  const supabase = createServerClientSupabase();
-
   const { data, error } = await supabase
     .from("bid")
     .select("*")
