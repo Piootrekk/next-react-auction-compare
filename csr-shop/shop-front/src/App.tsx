@@ -1,10 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { RouterProvider } from "react-router-dom";
+import AuthProvider from "./context/AuthContext";
+import router from "./routes/router";
 
 const App = () => {
   return (
-    <Button variant={"outline"} size={"lg"}>
-      Click me
-    </Button>
+    <>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </>
   );
 };
 

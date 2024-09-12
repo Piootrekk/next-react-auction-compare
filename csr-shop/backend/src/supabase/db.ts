@@ -6,7 +6,7 @@ export type TNewAuctionSchema = {
   description: string | null;
   startingPrice: number;
   intetvalPrice: number;
-  image: UploadedFile;
+  image: Express.Multer.File;
   endsAt: string;
 };
 
@@ -39,7 +39,7 @@ export const insertNewAuction = async (
 ) => {
   const storageObj = await supabase.storage
     .from("auction_images")
-    .upload(newAuctionData.image.name, newAuctionData.image.data, {
+    .upload(newAuctionData.image.originalname, newAuctionData.image.buffer, {
       contentType: newAuctionData.image.mimetype,
     });
 
@@ -57,7 +57,7 @@ export const insertNewAuction = async (
       starting_bid: newAuctionData.startingPrice,
       interval_bid: newAuctionData.intetvalPrice,
       end_time: newAuctionData.endsAt,
-      image_path: newAuctionData.image.name,
+      image_path: newAuctionData.image.originalname,
     },
   ]);
 
