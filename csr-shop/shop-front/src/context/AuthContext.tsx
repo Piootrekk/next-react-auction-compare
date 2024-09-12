@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import useFetchCallback from "@/hooks/useFetchCallback";
-import { RouterProvider } from "react-router-dom";
-import routerSkeleton from "@/routes/routerSkeleton";
 import { getuserInfo, login, logout, register, TUser } from "@/api/axiosAuth";
+import DashboardSkeleton from "@/components/page-components/loading/DashboardSkeleton";
 
 type AuthContextType = {
   user: TUser | null | undefined;
@@ -62,7 +61,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [registerState.data]);
 
   if (authState.isLoading || authState.error) {
-    return <RouterProvider router={routerSkeleton} />;
+    return <DashboardSkeleton />;
   }
 
   if (user !== undefined) {

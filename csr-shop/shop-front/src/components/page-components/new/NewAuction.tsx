@@ -1,7 +1,7 @@
-import FileInput from "../ui/file-input";
-import { Button } from "../ui/button";
-import InputCalendar from "../ui/input-calendar";
-import { Input } from "../ui/input";
+import FileInput from "../../ui/file-input";
+import { Button } from "../../ui/button";
+import InputCalendar from "../../ui/input-calendar";
+import { Input } from "../../ui/input";
 import { getZodErrors } from "@/utils/getZodErrors";
 import useFetchCallback from "@/hooks/useFetchCallback";
 import { createAuction } from "@/api/endpoints";
@@ -10,8 +10,8 @@ import {
   TNewAuctionSchema,
 } from "@/lib/schema/newAuctionSchema";
 import { useState } from "react";
-import ErrorMessage from "../page-components/error/formError";
-import LoadingSpin from "../page-components/loading/LoadingSpin";
+import ErrorMessage from "../error/formError";
+import LoadingSpin from "../loading/LoadingSpin";
 import { useAuth } from "@/context/AuthContext";
 const NewAuction = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});

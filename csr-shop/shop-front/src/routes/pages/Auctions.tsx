@@ -3,6 +3,7 @@ import useFetchCallback from "@/hooks/useFetchCallback";
 import { getAllAuctions } from "@/api/endpoints";
 import Error from "@/components/page-components/error/error";
 import DisplayAuctions from "@/components/page-components/auctions/DisplayAuctions";
+import AuctionSkeleton from "@/components/page-components/loading/AuctionSkeleton";
 
 const Auctions = () => {
   const actions = useFetchCallback(getAllAuctions);
@@ -11,7 +12,7 @@ const Auctions = () => {
   }, []);
 
   if (actions.isLoading) {
-    return <div>Loading...</div>;
+    return <AuctionSkeleton />;
   }
 
   if (actions.error) {

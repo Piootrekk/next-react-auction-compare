@@ -73,7 +73,7 @@ const getAllAuctions = async () => {
 };
 
 const GetMyAuctions = async (sessionId: string) => {
-  const response = await axiosInstance<TAuction>({
+  const response = await axiosInstance<TAuction[]>({
     method: "GET",
     url: "/my-auctions",
     headers: getheader(sessionId),
@@ -100,14 +100,14 @@ const insertNewBid = async (
     headers: getheader(sessionId),
     data: {
       auction_id: auctionId,
-      bid_amount: bidAmount,
+      bid: bidAmount,
     },
   });
   return response.data;
 };
 
 const getMyBids = async (sessionId: string) => {
-  const response = await axiosInstance({
+  const response = await axiosInstance<TAuctionWithBids["bid"]>({
     method: "GET",
     url: "/my-bids",
     headers: getheader(sessionId),

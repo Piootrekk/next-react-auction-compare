@@ -1,4 +1,4 @@
-import NewAuction from "@/components/new/NewAuction";
+import NewAuction from "@/components/page-components/new/NewAuction";
 import { useAuth } from "@/context/AuthContext";
 import { redirect } from "react-router-dom";
 

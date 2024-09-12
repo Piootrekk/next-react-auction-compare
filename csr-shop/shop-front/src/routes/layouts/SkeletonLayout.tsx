@@ -1,5 +1,7 @@
+import DashboardSkeleton from "@/components/page-components/loading/DashboardSkeleton";
+
 const SkeletonLayout = () => {
-  return <div>SkeletonLayout</div>;
+  return <DashboardSkeleton />;
 };
 
 export default SkeletonLayout;
