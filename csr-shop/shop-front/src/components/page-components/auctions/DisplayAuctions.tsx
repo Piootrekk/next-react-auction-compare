@@ -27,14 +27,20 @@ const DisplayAuctions: React.FC<DisplayAuctionsProps> = ({ auctions }) => {
         {auctions.map((auction) => (
           <Card key={auction.id}>
             <CardHeader>
-              <CardTitle>{auction.title}</CardTitle>
+              <CardTitle className="text-2xl font-bold flex line-clamp-1">
+                {auction.title}
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <img
-                src={`${endpoint}/${auction.image_path}`}
-                alt={auction.title}
-                className="w-full h-48 object-cover"
-              />
+            <CardContent className="gap-y-2 flex flex-col">
+              <div className="w-full h-full flex justify-center items-center rounded-lg">
+                <img
+                  src={`${endpoint}/${auction.image_path}`}
+                  alt={auction.title}
+                  width={200}
+                  height={200}
+                  className="object-contain w-full h-64 rounded-lg"
+                />
+              </div>
               <p className="text-lg font-semibold mt-4">
                 Starting bid price: {auction.starting_bid} USD
               </p>

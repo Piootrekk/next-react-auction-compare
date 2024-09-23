@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { passportMiddleware } from "./middlewares/loggedin";
 import headerMiddleware, { corsOptionsMiddleware } from "./middlewares/cors";
 import router from "./routes/router";
+import cookieParser from "cookie-parser";
 
 config();
 
@@ -17,6 +18,7 @@ app.use(headerMiddleware);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser());
 app.use(router);
 
 app.get("/", (req: Request, res: Response) => {

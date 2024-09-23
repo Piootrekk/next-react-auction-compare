@@ -3,6 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Auctions",
   description: "Auctions for everyone, buy and sell your items.",
+  keywords: ["auctions", "buy", "sell", "items", "products", "bids" ,"outbids"],
 };
 
 export default function LayoutAuction({

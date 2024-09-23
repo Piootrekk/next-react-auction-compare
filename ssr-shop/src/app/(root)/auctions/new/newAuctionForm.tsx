@@ -67,7 +67,7 @@ const NewAuctionForm = () => {
         variant={"secondary"}
         size="lg"
         className="self-end"
-        buttonName={"button"}
+        buttonName={"Create"}
       >
         Create Auction
       </PendingSubmit>

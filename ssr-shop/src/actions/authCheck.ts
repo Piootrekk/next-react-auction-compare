@@ -1,5 +1,4 @@
 "use server";
-
 import createServerClientSupabase from "@/lib/supabase/server";
 const authCheck = async () => {
   const supabase = createServerClientSupabase();

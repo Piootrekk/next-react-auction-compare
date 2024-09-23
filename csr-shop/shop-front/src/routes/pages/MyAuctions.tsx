@@ -4,9 +4,14 @@ import MyAuctionsCard from "@/components/page-components/myAuctions/MyAuctionsCa
 import { useAuth } from "@/context/AuthContext";
 import useFetchCallback from "@/hooks/useFetchCallback";
 import { useEffect } from "react";
+import { redirect } from "react-router-dom";
 
 const MyAuctions = () => {
   const { user } = useAuth();
+  if (!user) {
+    redirect("/login");
+  }
+  
   const myAuctions = useFetchCallback(GetMyAuctions);
 
   useEffect(() => {

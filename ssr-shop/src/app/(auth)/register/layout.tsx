@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Register",
   description: "Register a new account",
+  keywords: ["register", "signup", "account"],
 };
 
 export default function RegisterLayout({

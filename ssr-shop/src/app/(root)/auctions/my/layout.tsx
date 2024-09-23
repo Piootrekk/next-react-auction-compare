@@ -5,6 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "User auctions",
   description: "Your auctions and bids history.",
+  keywords: ["auctions", "bids", "history", "created auctions"],
 };
 
 export default function LayoutAuction({

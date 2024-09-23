@@ -19,8 +19,8 @@ const BidsHistory = async () => {
   if (bids.data.length === 0) {
     return (
       <div className="container my-12 gap-y-8">
-        <h1 className="text-3xl font-bold pb-8">All available auctions</h1>
-        <p className="text-2xl font-bold">No auctions available</p>
+        <h1 className="text-3xl font-bold pb-8">All available bids:</h1>
+        <p className="text-2xl font-bold text-muted-foreground">No bids available</p>
       </div>
     );
   }

@@ -23,6 +23,11 @@ router.post("/login", async (req, res) => {
   }
   try {
     const user = await signIn(email, password);
+    res.cookie('access_token', user.session.access_token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7 * 1000
+  });
     res.json({
       id: user.user.id,
       email: user.user.email,
@@ -38,6 +43,9 @@ router.post("/login", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+
+
 
 router.post("/register", async (req, res) => {
   const { email, password } = req.body;
