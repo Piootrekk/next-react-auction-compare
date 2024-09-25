@@ -3,7 +3,7 @@ import image500 from "@/images/500x.jpg";
 import image1000 from "@/images/1000x.jpg";
 import image3000 from "@/images/3000x.jpg";
 import image6000 from "@/images/6000x.jpg";
-import image15000 from "@/images/15000.jpg";
+import image10000 from "@/images/10000x.jpg";
 import Image from "next/image";
 
 type ImageTestProps = {
@@ -19,7 +19,7 @@ const ImageTest: React.FC<ImageTestProps> = ({ params: { id } }) => {
     1000: image1000,
     3000: image3000,
     6000: image6000,
-    15000: image15000,
+    10000: image10000,
   };
   if (id === undefined) {
     return <h1>Invalid image id</h1>;
@@ -30,7 +30,7 @@ const ImageTest: React.FC<ImageTestProps> = ({ params: { id } }) => {
     id !== "1000" &&
     id !== "3000" &&
     id !== "6000" &&
-    id !== "15000"
+    id !== "10000"
   ) {
     return <h1>Image not found</h1>;
   }
