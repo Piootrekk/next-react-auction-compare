@@ -9,6 +9,9 @@ import AuctionId from "./pages/AuctionId";
 import MyAuctions from "./pages/MyAuctions";
 import MyLayout from "./layouts/MyLayout";
 import MyBids from "./pages/MyBids";
+import ImageTest from "./pages/ImageTest";
+import StaticRender from "./pages/StaticRender";
+import DynamicRender from "./pages/DynamicRender";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,9 @@ const router = createBrowserRouter([
           { path: "/auctions/my/bids-history", element: <MyBids /> },
         ],
       },
+      { path: "/test/image/:id", element: <ImageTest /> },
+      { path: "/test/static-render/:amount", element: <StaticRender /> },
+      { path: "/test/dynamic-render", element: <DynamicRender /> },
     ],
   },
 ]);

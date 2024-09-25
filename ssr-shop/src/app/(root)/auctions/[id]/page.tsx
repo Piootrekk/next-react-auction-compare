@@ -23,7 +23,6 @@ if (!endpoint) {
 const AuctionId: React.FC<AuctionIdProps> = async ({ params: { id } }) => {
   const user = await authCheck();
   const { data } = await getAuctionByIdWithBids(id);
-  console.log(id);
   if (!data) {
     return <div>Auction not found</div>;
   }
